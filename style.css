@@ -1,0 +1,613 @@
+/* ==========================================================================
+   PORTFOLIO STYLESHEET - MOHAMMAD RAZA
+   Built with plain CSS using Custom Properties (Variables)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS & CSS VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+    /* Color Palette */
+    --bg-color: #FAF9F6;           /* Soft off-white background */
+    --text-color: #111827;         /* Near-black text for high contrast */
+    --muted-color: #6B7280;        /* Muted gray text for subtitles & metadata */
+    --accent-color: #DC2650;       /* Crimson accent color */
+    --accent-hover: #BE123C;       /* Darker crimson hover state */
+    --accent-light: rgba(220, 38, 80, 0.08); /* Soft crimson blush tint */
+    --accent-glow: rgba(220, 38, 80, 0.35);  /* Crimson glow shadow */
+    
+    /* Card & Surface Tokens */
+    --card-bg: #FFFFFF;
+    --border-color: #E5E7EB;
+    --border-hover: rgba(220, 38, 80, 0.3);
+
+    /* Typography */
+    --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* Border Radii */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    /* Motion & Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL RESETS & BASE STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessible Focus States */
+:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+/* Top Subtle Blush Radial Glow */
+.background-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 500px;
+    background: radial-gradient(circle at 50% -10%, rgba(251, 207, 216, 0.55), rgba(253, 232, 237, 0.25) 55%, transparent 80%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Page Layout Container */
+.page-container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 60px 24px 40px 24px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   3. HERO HEADER SECTION & STAGGERED ENTRANCE ANIMATIONS
+   -------------------------------------------------------------------------- */
+.hero-section {
+    margin-bottom: 48px;
+}
+
+/* Staggered Fade Up Entrance Animations */
+.hero-pill {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+}
+
+.hero-title {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.hero-subtitle {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+.nav-controls {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+}
+
+.content-area {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Availability Badge Pill */
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    background: var(--accent-light);
+    border: 1px solid rgba(220, 38, 80, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    margin-bottom: 24px;
+}
+
+/* Pulsing Crimson Dot */
+.status-dot {
+    position: relative;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+}
+
+.status-dot::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    animation: pulseRing 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(2.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(2.3);
+        opacity: 0;
+    }
+}
+
+/* Hero Heading */
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem); /* Very large bold heading (~64px) */
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-color);
+    margin-bottom: 18px;
+}
+
+.accent-text {
+    color: var(--accent-color);
+}
+
+/* Hero Subtitle / Tagline */
+.hero-subtitle {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--muted-color);
+    max-width: 680px;
+    margin-bottom: 32px;
+}
+
+/* Section Switcher Buttons */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-btn {
+    font-family: var(--font-main);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted-color);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+/* Inactive button hover */
+.nav-btn:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-color);
+}
+
+/* Active button state */
+.nav-btn.active {
+    background: var(--accent-color);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+/* --------------------------------------------------------------------------
+   4. CONTENT AREA & TAB PANELS (FADE + SLIDE TRANSITIONS)
+   -------------------------------------------------------------------------- */
+.content-area {
+    flex: 1;
+}
+
+.tab-panel {
+    transition: opacity 300ms ease, transform 300ms ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tab-panel.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+.tab-panel.fade-out {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+.tab-panel.fade-in {
+    animation: fadeInSlideUp 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   5. SECTION 1: ABOUT ME STYLES
+   -------------------------------------------------------------------------- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Photo on right/left flexed */
+    gap: 40px;
+    align-items: start;
+}
+
+/* Position bio on left and photo on right on desktop */
+.bio-column {
+    grid-column: 1;
+}
+
+.photo-column {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.profile-photo {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    border: 4px solid #FFFFFF;
+    transition: transform var(--transition-normal);
+}
+
+.profile-photo:hover {
+    transform: scale(1.02);
+}
+
+.bio-paragraph {
+    font-size: 1.025rem;
+    line-height: 1.7;
+    color: #374151;
+    margin-bottom: 20px;
+}
+
+/* Skills Chips Section */
+.skills-container {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.skills-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 16px;
+}
+
+.chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all var(--transition-fast);
+}
+
+.chip-icon {
+    color: var(--accent-color);
+}
+
+.skill-chip:hover {
+    border-color: var(--border-hover);
+    background: var(--accent-light);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTION 2: MY WORK STYLES
+   -------------------------------------------------------------------------- */
+.work-intro {
+    font-size: 1.05rem;
+    color: var(--muted-color);
+    margin-bottom: 32px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+    border-color: var(--border-hover);
+}
+
+.project-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-color); /* Title in Crimson */
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.project-description {
+    font-size: 0.95rem;
+    color: #4B5563;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.tag-chip {
+    font-size: 0.775rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    color: var(--accent-color);
+    border-radius: var(--radius-sm);
+}
+
+.project-card-footer {
+    padding-top: 16px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.project-link:hover {
+    color: var(--accent-color);
+}
+
+.link-icon {
+    transition: transform var(--transition-fast);
+}
+
+.project-link:hover .link-icon {
+    transform: translate(2px, -2px);
+}
+
+/* Coming Soon Card Variant */
+.card-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.coming-soon-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    background: #F3F4F6;
+    color: #6B7280;
+    border: 1px solid #E5E7EB;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.project-link.disabled {
+    color: #9CA3AF;
+    cursor: not-allowed;
+    font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   7. FOOTER STYLES
+   -------------------------------------------------------------------------- */
+.site-footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-copy {
+    font-size: 0.875rem;
+    color: var(--muted-color);
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.social-link:hover {
+    color: var(--accent-color);
+}
+
+/* --------------------------------------------------------------------------
+   8. RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 40px 18px 32px 18px;
+    }
+
+    .hero-section {
+        margin-bottom: 36px;
+    }
+
+    .hero-subtitle {
+        font-size: 1.05rem;
+    }
+
+    /* Stack About Me section to 1 column: photo ABOVE bio */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .photo-column {
+        grid-column: 1;
+        grid-row: 1; /* Photo ABOVE bio on mobile */
+        justify-content: center;
+    }
+
+    .bio-column {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .profile-photo {
+        max-width: 220px;
+    }
+
+    /* Stack projects grid on mobile */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    .site-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   9. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .hero-pill,
+    .hero-title,
+    .hero-subtitle,
+    .nav-controls,
+    .content-area,
+    .tab-panel,
+    .tab-panel.fade-in,
+    .project-card,
+    .skill-chip,
+    .profile-photo,
+    .nav-btn,
+    .link-icon {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .status-dot::after {
+        animation: none !important;
+    }
+}

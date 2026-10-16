@@ -1,0 +1,7 @@
+# Ignore unrelated projects and temporary scripts
+New folder/
+app.js
+styles.css
+generate_avatar.py
+node_modules/
+.next/
